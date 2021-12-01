@@ -5,7 +5,7 @@
 You can install the package via composer:
 
 ```bash
-# composer require akk7300/module-generator
+composer require akk7300/module-generator
 ```
 
 ## Usage
