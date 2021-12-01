@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\Eloquent;
+
+use Illuminate\Support\Facades\DB;
+use {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\{{ class }}RepositoryInterface;
+use {{ namespace }}\Foundations\Domain\Base\Repositories\Eloquent\BaseRepository;
+use {{ namespace }}\Foundations\Domain\{{ classes }}\{{ class }};
+
+class {{ class }}Repository extends BaseRepository implements {{ class }}RepositoryInterface
+{
+    public function __construct({{ class }} $model)
+    {
+        parent::__construct($model);
+    }
+
+    public function get{{ classes }}() 
+    {
+ 		return response()->json(['message'=>'this is from repository']);
+    }
+}

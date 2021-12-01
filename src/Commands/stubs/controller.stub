@@ -1,0 +1,34 @@
+<?php
+
+namespace {{ namespace }}\Api\{{ classes }}\Controllers;
+
+use Illuminate\Http\Request;
+use {{ namespace }}\Api\{{ classes }}\Validation\{{ class }}Validator;
+use {{ namespace }}\Api\Common\BaseController as BaseController;
+use {{ namespace }}\Api\{{ classes }}\Services\{{ class }}Service;
+
+class {{ class }}Controller extends BaseController
+{
+     const ATTRIBUTES = [
+
+    ];
+
+    protected $validator;
+    protected $service;
+
+    public function __construct(
+        {{ class }}Validator $validator,
+        {{ class }}Service $service
+    ) {
+        $this->validator = $validator;
+        $this->service = $service;
+    }
+
+    public function index()
+    {
+        $this->validator->list($array = []);
+        
+        return $this->service->get{{ classes }}();
+    }
+
+}

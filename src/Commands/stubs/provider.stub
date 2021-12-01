@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ namespace }}\Foundations\Domain\{{ classes }}\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\{{ class }}RepositoryInterface;
+use {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\Eloquent\{{ class }}Repository;
+
+
+class Bind{{ class }}ServiceProvider extends ServiceProvider
+{
+    /**
+     * Register the service providers.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind(
+            {{ class }}RepositoryInterface::class,
+            {{ class }}Repository::class
+        );
+    }
+}

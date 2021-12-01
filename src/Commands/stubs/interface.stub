@@ -1,0 +1,8 @@
+<?php
+
+namespace {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories;
+
+interface {{ class }}RepositoryInterface
+{
+    public function get{{ classes }}();
+}

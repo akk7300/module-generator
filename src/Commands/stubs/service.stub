@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ namespace }}\Api\{{ classes }}\Services;
+
+use {{ namespace }}\Api\Common\BaseController;
+use {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\Eloquent\{{ class }}Repository;
+use {{ namespace }}\Foundations\Domain\{{ classes }}\{{ class }};
+
+class {{ class }}Service extends BaseController
+{
+    protected $repository;
+
+    public function __construct(
+        {{ class }}Repository $repository
+    )
+    {
+        $this->repository = $repository;
+    }
+
+    public function get{{ classes }}()
+    {
+        return $this->repository->get{{ classes }}();
+    }
+}

@@ -1,0 +1,6 @@
+<?php
+
+
+return [
+    'namespace' => 'Luxura',
+];

@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ namespace }}\Api\{{ classes }}\Validation;
+
+use Validator;
+
+class {{ class }}validator 
+{    
+     public function list(array $inputs)
+    {
+        
+    }
+}
