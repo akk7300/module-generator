@@ -6,7 +6,7 @@ namespace {{ namespace }}\Foundations\Domain\Base\Repositories;
  * An interface for BaseRepository class.
  * 
  * @author Aung Khant
- * @copyright (c) 2021 - Zote Innovation, All Right Reserved.
+ * @copyright MIT
  */
 interface BaseRepositoryInterface
 {

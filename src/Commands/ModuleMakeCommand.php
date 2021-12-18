@@ -85,6 +85,7 @@ class ModuleMakeCommand extends Command
                 __DIR__.'/stubs/base-provider.stub',
                 __DIR__.'/stubs/base-repository.stub',
                 __DIR__.'/stubs/base-interface.stub',
+                __DIR__.'/stubs/base-controller.stub',
 
         ];
     }
@@ -125,6 +126,7 @@ class ModuleMakeCommand extends Command
         $apiPrefix = base_path().'/modules/Api/'.$this->getPluralClassName($className);
         $foundationPrefix = base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className);
         $basePrefix = base_path().'/modules/Foundations/Domain/Base';
+        $commonPrefix = base_path().'/modules/Api/Common';
 
         return $paths = [
             $apiPrefix . '/Controllers/' . $className . 'Controller.php',
@@ -137,6 +139,7 @@ class ModuleMakeCommand extends Command
             $basePrefix . '/Providers/BindBaseServiceProvider.php',
             $basePrefix . '/Repositories/Eloquent/BaseRepository.php',
             $basePrefix . '/Repositories/BaseRepositoryInterface.php',
+            $commonPrefix . '/BaseController.php',
         ];
     }
 

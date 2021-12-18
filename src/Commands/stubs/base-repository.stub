@@ -10,7 +10,7 @@ use Illuminate\Database\QueryException;
  * A Base repository class.
  * 
  * @author Aung Khant
- * @copyright (c) 2021 - Zote Innovation, All Right Reserved.
+ * @copyright MIT.
  */
 class BaseRepository implements BaseRepositoryInterface
 {    

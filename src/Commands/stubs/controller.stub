@@ -3,19 +3,25 @@
 namespace {{ namespace }}\Api\{{ classes }}\Controllers;
 
 use Illuminate\Http\Request;
+use {{ namespace }}\Api\Common\BaseController as BaseController;
 use {{ namespace }}\Api\{{ classes }}\Validation\{{ class }}Validator;
 use {{ namespace }}\Api\Common\BaseController as BaseController;
 use {{ namespace }}\Api\{{ classes }}\Services\{{ class }}Service;
 
+/**
+ * A routing controller API section.
+ * 
+ * @author Aung Khant
+ * @copyright MIT.
+*/
 class {{ class }}Controller extends BaseController
 {
-     const ATTRIBUTES = [
 
-    ];
-
-    protected $validator;
-    protected $service;
-
+    /**
+     * __construct
+     *
+     * @return void
+    */
     public function __construct(
         {{ class }}Validator $validator,
         {{ class }}Service $service
@@ -24,9 +30,23 @@ class {{ class }}Controller extends BaseController
         $this->service = $service;
     }
 
-    public function index()
+    /**
+     * Retrieve a list of the resource.
+     * 
+     * @param  mixed $request
+     * @return response
+    */
+    public function index(Request $request)
     {
-        $this->validator->list($array = []);
+        $this->validator->list($request->all());
+
+        if ($validation->fails()) {
+            $errors = $this->getErrorObject($validation->errors());
+
+            return $this->responseError($errors, '', '400');
+        }
+
+        $attributes = $validation->validated();
         
         return $this->service->get{{ classes }}();
     }
