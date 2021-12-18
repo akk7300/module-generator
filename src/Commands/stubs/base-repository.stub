@@ -1,0 +1,114 @@
+<?php
+
+namespace {{ namespace }}\Foundations\Domain\Base\Repositories\Eloquent;
+
+use {{ namespace }}\Foundations\Domain\Base\Repositories\BaseRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
+
+/**
+ * A Base repository class.
+ * 
+ * @author Aung Khant
+ * @copyright (c) 2021 - Zote Innovation, All Right Reserved.
+ */
+class BaseRepository implements BaseRepositoryInterface
+{    
+    /**
+     * model
+     *
+     * @var mixed
+     */
+    protected $model;
+
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * Retrieve a connection of eloquent.
+     * It should be called by all functions
+     *
+     * @param bool $useModel A flag that use $model instead of $relation forcibly, when it is passed as true.
+     * @param bool $forInsert only adminRelation is returned when true is passed.
+     * @return mixed
+     */
+    public function connection($useModel = false)
+    {
+        if ($useModel) {
+            return $this->model;
+        }
+        
+        return $this->model;
+    }
+
+    /**
+     * Creates a row.
+     *
+     * @param array $params
+     * @param bool $useModel
+     * @return mixed
+     * @throws DbErrorException
+     */
+    public function insert(array $params, $useModel = false)
+    {
+        $query = $this->connection($useModel)->create($params);
+
+        if (!$query) {
+            throw new QueryException("Inserting a row was failed.");
+        }
+
+        return $query;
+    }
+
+     /**
+     * Creates a row and then returns a primary ID of created record.
+     *
+     * @param array $params
+     * @param bool $useModel
+     * @return mixed
+     * @throws QueryException
+     */
+    public function insertGetId(array $params, $useModel = false)
+    {
+        $query = $this->insert($params, $useModel);
+
+        return $query['id'];
+    }
+
+    /**
+     * Updates a row that corresponds to the ID.
+     *
+     * @param $id
+     * @param array $params
+     * @return mixed
+     * @throws DbErrorException
+     */
+    public function update($id, array $params)
+    {
+        $query = $this->connection(true)
+            ->where('id', $id)
+            ->update($params);
+
+        return $query;
+    }
+
+    /**
+     * Deletes a row that corresponds to the ID.
+     *
+     * @param $id
+     * @return mixed
+     * @throws DbErrorException
+     */
+    public function delete($id)
+    {
+        $query = $this->connection(true)->destroy($id);
+        
+        if (!$query) {
+            throw new QueryException("Deleting a row was failed.");
+        }
+
+        return $query;
+    }
+}

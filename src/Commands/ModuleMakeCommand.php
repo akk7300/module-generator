@@ -58,7 +58,7 @@ class ModuleMakeCommand extends Command
 
             $this->makeDirectory(dirname($path));
             $contents = $this->getSourceFile($index);
-
+           
             if(!$this->files->exists($path)){
                 $this->files->put($path, $contents);
                 $this->info("File : {$path} created");
@@ -82,6 +82,9 @@ class ModuleMakeCommand extends Command
                 __DIR__.'/stubs/repository.stub',
                 __DIR__.'/stubs/interface.stub',
                 __DIR__.'/stubs/model.stub',
+                __DIR__.'/stubs/base-provider.stub',
+                __DIR__.'/stubs/base-repository.stub',
+                __DIR__.'/stubs/base-interface.stub',
 
         ];
     }
@@ -121,6 +124,7 @@ class ModuleMakeCommand extends Command
     {
         $apiPrefix = base_path().'/modules/Api/'.$this->getPluralClassName($className);
         $foundationPrefix = base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className);
+        $basePrefix = base_path().'/modules/Foundations/Domain/Base';
 
         return $paths = [
             $apiPrefix . '/Controllers/' . $className . 'Controller.php',
@@ -130,6 +134,9 @@ class ModuleMakeCommand extends Command
             $foundationPrefix . '/Repositories/Eloquent/' . $className . 'Repository.php',
             $foundationPrefix . '/Repositories/' . $className . 'RepositoryInterface.php',
             $foundationPrefix . '/' . $className . '.php',
+            $basePrefix . '/Providers/BindBaseServiceProvider.php',
+            $basePrefix . '/Repositories/Eloquent/BaseRepository.php',
+            $basePrefix . '/Repositories/BaseRepositoryInterface.php',
         ];
     }
 
