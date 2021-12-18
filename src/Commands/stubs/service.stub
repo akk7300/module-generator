@@ -6,17 +6,28 @@ use {{ namespace }}\Api\Common\BaseController;
 use {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\Eloquent\{{ class }}Repository;
 use {{ namespace }}\Foundations\Domain\{{ classes }}\{{ class }};
 
+/**
+ * A service class API section.
+ * 
+ * @author Aung Khant
+ * @copyright MIT.
+ * 
+*/
 class {{ class }}Service extends BaseController
 {
     protected $repository;
 
-    public function __construct(
-        {{ class }}Repository $repository
-    )
+    public function __construct({{ class }}Repository $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * Retrieve a list of the resource.
+     *
+     * @param $params
+     * @return void
+    */
     public function get{{ classes }}()
     {
         return $this->repository->get{{ classes }}();

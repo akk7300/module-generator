@@ -9,7 +9,7 @@ use {{ namespace }}\Api\Common\BaseController as BaseController;
 use {{ namespace }}\Api\{{ classes }}\Services\{{ class }}Service;
 
 /**
- * A routing controller API section.
+ *  A routing controller for @var (plural className) on API section.
  * 
  * @author Aung Khant
  * @copyright MIT.
@@ -33,6 +33,7 @@ class {{ class }}Controller extends BaseController
     /**
      * Retrieve a list of the resource.
      * 
+     * Routing: 
      * @param  mixed $request
      * @return response
     */

@@ -7,6 +7,12 @@ use {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\{{ class }}Rep
 use {{ namespace }}\Foundations\Domain\Base\Repositories\Eloquent\BaseRepository;
 use {{ namespace }}\Foundations\Domain\{{ classes }}\{{ class }};
 
+/**
+ * An eloquent repository class for @var (plural className).
+ * 
+ * @author Aung Khant
+ * @copyright MIT.
+*/
 class {{ class }}Repository extends BaseRepository implements {{ class }}RepositoryInterface
 {
     public function __construct({{ class }} $model)
@@ -14,8 +20,14 @@ class {{ class }}Repository extends BaseRepository implements {{ class }}Reposit
         parent::__construct($model);
     }
 
+    /**
+     * Retrieve @var (plural className).
+     *
+     * @param  mixed $params
+     * @return mixed
+    */
     public function get{{ classes }}() 
     {
- 		return response()->json(['message'=>'this is from repository']);
+        return {{ class }}::get();
     }
 }

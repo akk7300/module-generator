@@ -3,11 +3,28 @@
 namespace {{ namespace }}\Api\{{ classes }}\Validation;
 
 use Validator;
+use Illuminate\Validation\Rule;
 
+/**
+ * An API validator for @var (plural className) used to validate request parameters from HTTP.
+ * The class return an exception is occured by parent validator.
+ * 
+ * @author Aung Khant
+ * @copyright MIT.
+*/
 class {{ class }}validator 
 {    
+     /**
+     * Validate the passed parameters according to the rules of "Retrieving a list of @var (plural className)".
+     *
+     * @param  mixed $inputs
+     * @return exceptions
+    */
      public function list(array $inputs)
-    {
+     {
+          return Validator::make($inputs, [
+           
+          ]);
         
-    }
+     }
 }
