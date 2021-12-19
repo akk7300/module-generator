@@ -7,6 +7,12 @@ use {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\{{ class }}Rep
 use {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories\Eloquent\{{ class }}Repository;
 
 
+/**
+ * A service provider class used to bind interfaces to the implementation of the @var (plural className).
+ * 
+ * @author Aung Khant
+ * MIT
+*/
 class Bind{{ class }}ServiceProvider extends ServiceProvider
 {
     /**

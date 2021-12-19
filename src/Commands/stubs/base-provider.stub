@@ -1,0 +1,29 @@
+<?php
+
+namespace {{ namespace }}\Foundations\Domain\Base\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use {{ namespace }}\Foundations\Domain\Base\Repositories\BaseRepositoryInterface;
+use {{ namespace }}\Foundations\Domain\Base\Repositories\Eloquent\BaseRepository;
+
+/**
+ * A service provider class used to bind interfaces to the implementation of the base. 
+ * 
+ * @author Aung Khant
+ * @copyright MIT
+ */
+class BindBaseServiceProvider extends ServiceProvider 
+{    
+    /**
+     * register the service providers.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind(
+            BaseRepositoryInterface::class,
+            BaseRepository::class
+        );
+    }
+}

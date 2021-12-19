@@ -1,6 +1,7 @@
 <?php
 namespace Akk7300\ModuleGenerator\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Facades\File;
@@ -37,42 +38,27 @@ class ModuleMakeCommand extends Command
         $this->files = $files;
    }
 
+   /**
+    * Execute the console command.
+    */
     public function handle(){
-        if($this->getSingularClassName($this->argument('class')) == $this->argument('class'))
-        {
-           return $this->error('Please write a class name in plural');
-        }
 
         $className = $this->getSingularClassName($this->argument('class'));
 
-        $ApiFolderExists = file_exists(base_path().'/modules/Api/'.$this->argument('class'));
+        $ApiFolder = $this->checkFile('modules/Api');
+        $FoundationFolder = $this->checkFile('modules/Foundations/Domain');
 
-        $FoundationFolderExists = file_exists(base_path().'/modules/Foundations/Domain/'.$this->argument('class'));
-
-        if($ApiFolderExists || $FoundationFolderExists){
+        if($ApiFolder || $FoundationFolder){
            return $this->error($this->argument('class').' Module already exists');
         }
-
-        $controllerPath = base_path().'/modules/Api/'.$this->getPluralClassName($className).'/Controllers';
-        $servicePath = base_path().'/modules/Api/'.$this->getPluralClassName($className).'/Services';
-        $validatorPath = base_path().'/modules/Api/'.$this->getPluralClassName($className).'/Validation';
-
-        $providerPath = base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className).'/Providers';
-        $repositoryPath = base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className).'/Repositories/Eloquent';
-
-        File::makeDirectory($controllerPath, 0755, true);
-        File::makeDirectory($servicePath, 0755, true);
-        File::makeDirectory($validatorPath, 0755, true);
-
-        File::makeDirectory($providerPath, 0755, true);
-        File::makeDirectory($repositoryPath, 0755, true);
 
         $paths = $this->getSourceFilePath($className);
 
         foreach($paths as $index => $path){
-            
-            $contents = $this->getSourceFile($index);
 
+            $this->makeDirectory(dirname($path));
+            $contents = $this->getSourceFile($index);
+           
             if(!$this->files->exists($path)){
                 $this->files->put($path, $contents);
                 $this->info("File : {$path} created");
@@ -81,6 +67,11 @@ class ModuleMakeCommand extends Command
 
     }
 
+    /**
+     * Return the stub file path
+     * @return string
+     *
+    */
     public function getStubPath()
     {
         return [
@@ -91,6 +82,10 @@ class ModuleMakeCommand extends Command
                 __DIR__.'/stubs/repository.stub',
                 __DIR__.'/stubs/interface.stub',
                 __DIR__.'/stubs/model.stub',
+                __DIR__.'/stubs/base-provider.stub',
+                __DIR__.'/stubs/base-repository.stub',
+                __DIR__.'/stubs/base-interface.stub',
+                __DIR__.'/stubs/base-controller.stub',
 
         ];
     }
@@ -121,27 +116,78 @@ class ModuleMakeCommand extends Command
         return $contents;
     }
 
+    /**
+     * Get the full path of generate class
+     *
+     * @return array
+    */
     public function getSourceFilePath($className)
     {
+        $apiPrefix = base_path().'/modules/Api/'.$this->getPluralClassName($className);
+        $foundationPrefix = base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className);
+        $basePrefix = base_path().'/modules/Foundations/Domain/Base';
+        $commonPrefix = base_path().'/modules/Api/Common';
+
         return $paths = [
-            base_path().'/modules/Api/'.$this->getPluralClassName($className).'/Controllers/'.$className.'Controller.php',
-            base_path().'/modules/Api/'.$this->getPluralClassName($className).'/Services/'.$className.'Service.php',
-            base_path().'/modules/Api/'.$this->getPluralClassName($className).'/Validation/'.$className.'Validator.php',
-            base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className).'/Providers/Bind'.$className.'ServiceProvider.php',
-            base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className).'/Repositories/Eloquent/'.$className.'Repository.php',
-            base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className).'/Repositories/'.$className.'RepositoryInterface.php',
-            base_path().'/modules/Foundations/Domain/'.$this->getPluralClassName($className).'/'.$className.'.php',
+            $apiPrefix . '/Controllers/' . $className . 'Controller.php',
+            $apiPrefix . '/Services/' . $className . 'Service.php',
+            $apiPrefix . '/Validation/' . $className . 'Validator.php',
+            $foundationPrefix . '/Providers/Bind' . $className . 'ServiceProvider.php',
+            $foundationPrefix . '/Repositories/Eloquent/' . $className . 'Repository.php',
+            $foundationPrefix . '/Repositories/' . $className . 'RepositoryInterface.php',
+            $foundationPrefix . '/' . $className . '.php',
+            $basePrefix . '/Providers/BindBaseServiceProvider.php',
+            $basePrefix . '/Repositories/Eloquent/BaseRepository.php',
+            $basePrefix . '/Repositories/BaseRepositoryInterface.php',
+            $commonPrefix . '/BaseController.php',
         ];
     }
 
+    /**
+     * Return the Singular Capitalize Name
+     * @param $name
+     * @return string
+    */
     public function getSingularClassName($name)
     {
         return ucwords(Pluralizer::singular($name));
     }
 
+    /**
+     * Return the Plural Capitalize Name
+     * @param $name
+     * @return string
+    */
     public function getPluralClassName($name)
     {
         return ucwords(Pluralizer::plural($name));
+    }
+
+
+    /**
+     * Check file exist
+     * @return boolean
+     *
+    */
+    protected function checkFile($path)
+    {
+        return file_exists(base_path(). "/" . $path . "/" . $this->getPluralClassName($this->argument('class')));
+    }
+
+
+    /**
+     * Build the directory for the class if necessary.
+     *
+     * @param  string  $path
+     * @return string
+    */
+    protected function makeDirectory($path)
+    {
+        if (! $this->files->isDirectory($path)) {
+            $this->files->makeDirectory($path, 0777, true, true);
+        }
+
+        return $path;
     }
 
 }

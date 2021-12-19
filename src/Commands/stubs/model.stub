@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class {{ class }} extends Model
 {
     use HasFactory, SoftDeletes;
+
+    /**
+     * guarded
+     *
+     * @var array
+    */
+    protected $guarded = [];
 }

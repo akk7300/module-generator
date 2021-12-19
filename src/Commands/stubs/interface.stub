@@ -2,6 +2,12 @@
 
 namespace {{ namespace }}\Foundations\Domain\{{ classes }}\Repositories;
 
+/**
+ * An interface for @var (plural className).
+ * 
+ * @author Aung Khant
+ * @copyright MIT
+ */
 interface {{ class }}RepositoryInterface
 {
     public function get{{ classes }}();
