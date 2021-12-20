@@ -28,6 +28,10 @@ class {{ class }}Repository extends BaseRepository implements {{ class }}Reposit
     */
     public function get{{ classes }}() 
     {
-        return {{ class }}::get();
+        // return {{ class }}::get();
+
+        return [
+            'message' => 'Hello World'
+        ];
     }
 }

@@ -48,7 +48,9 @@ class {{ class }}Controller extends BaseController
 
         $attributes = $validation->validated();
         
-        return $this->service->get{{ classes }}();
+        $result = $this->service->get{{ classes }}();
+
+        return $this->sendResponse('', $result, '');
     }
 
 }
