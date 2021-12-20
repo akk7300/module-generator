@@ -1,4 +1,4 @@
-# Module Generator for laravel repository pattern
+# Quickly Generate Laravel Module
 
 ## Installation
 
@@ -8,25 +8,17 @@ You can install the package via composer:
 composer require akk7300/module-generator
 ```
 
+publish the config files and change namespace:
+
+``` 
+php artisan vendor:publish --provider="Akk7300\ModuleGenerator\ModuleGeneratorServiceProvider" --tag="config"
+```
+
 ## Usage
 
-```php
-// Usage description here
 ```
-
-### Testing
-
-```bash
-composer test
+php artisan make:module Blogs
 ```
-
-### Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
