@@ -5,7 +5,6 @@ namespace {{ namespace }}\Api\{{ classes }}\Controllers;
 use Illuminate\Http\Request;
 use {{ namespace }}\Api\Common\BaseController as BaseController;
 use {{ namespace }}\Api\{{ classes }}\Validation\{{ class }}Validator;
-use {{ namespace }}\Api\Common\BaseController as BaseController;
 use {{ namespace }}\Api\{{ classes }}\Services\{{ class }}Service;
 
 /**
@@ -39,7 +38,7 @@ class {{ class }}Controller extends BaseController
     */
     public function index(Request $request)
     {
-        $this->validator->list($request->all());
+        $validation = $this->validator->list($request->all());
 
         if ($validation->fails()) {
             $errors = $this->getErrorObject($validation->errors());
