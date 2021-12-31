@@ -22,7 +22,7 @@ for configure this package go to `config/modulegenerator.php` and if you want to
 return [
     'namespace' => 'Blog',
 ];
-
+```
 ## Usage
 
 ```
