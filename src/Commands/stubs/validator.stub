@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
  * @author Aung Khant
  * @copyright MIT.
 */
-class {{ class }}validator 
+class {{ class }}Validator 
 {    
      /**
      * Validate the passed parameters according to the rules of "Retrieving a list of @var (plural className)".
