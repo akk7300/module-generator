@@ -20,9 +20,21 @@ for configure this package go to `config/modulegenerator.php` and if you want to
 <?php  
   
 return [
-    'namespace' => 'Blog',
+    'namespace' => 'Laravel',
 ];
 ```
+
+and then add line in `composer.json` `autoload` block
+
+```
+"autoload": {
+        "psr-4": {
+            // 
+            "Laravel\\": "modules/"
+        }
+    },
+```
+
 ## Usage
 
 ```
