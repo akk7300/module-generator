@@ -24,7 +24,7 @@ return [
 ];
 ```
 
-and then add line in `composer.json` `autoload` block
+add line in `composer.json` `autoload` block
 
 ```
 "autoload": {
@@ -34,7 +34,11 @@ and then add line in `composer.json` `autoload` block
         }
     },
 ```
+and then 
 
+```
+composer dump-autoload
+```
 ## Usage
 
 ```
