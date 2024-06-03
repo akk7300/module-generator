@@ -45,10 +45,6 @@ composer dump-autoload
 php artisan make:module Blog
 ```
 
-### Security
-
-If you discover any security related issues, please email aungkhant2233@gmail.com instead of using the issue tracker.
-
 ## Credits
 
 -   [Aung Khant](https://github.com/akk7300)
